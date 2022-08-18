@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Johanson",
+      "lastName": "Billi",
+      "address": "Alabama",
+      "location": "Texas",
+      "common": "14423",
+      "province": "East",
+      "email": "Johansonbilli@email.com",
+      "note": "This is a note"
+    }
+  ]
+}

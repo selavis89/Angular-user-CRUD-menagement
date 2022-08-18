@@ -1,0 +1,114 @@
+<div class="container mt-3 table-responsive">
+  <div class="search-hero">
+    <input
+      class="form-control"
+      type="text"
+      name="search"
+      [(ngModel)]="searchText"
+      autocomplete="off"
+      placeholder="&#61442;  Search"
+    />
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th
+          scope="col"
+          [class.active]="order === 'firstName'"
+          (click)="setOrder('firstName')"
+        >
+          Name <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th
+          scope="col"
+          [class.active]="order === 'lastName'"
+          (click)="setOrder('lastName')"
+        >
+          Surname <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th
+          scope="col"
+          [class.active]="order === 'address'"
+          (click)="setOrder('address')"
+        >
+          Municipality <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th
+          scope="col"
+          [class.active]="order === 'email'"
+          (click)="setOrder('email')"
+        >
+          Email <span [hidden]="reverse">▼</span
+          ><span [hidden]="!reverse">▲</span>
+        </th>
+        <th scope="col" class="text-center">Action</th>
+        <!-- <th *ngFor="let column of columnNames">
+          {{ column }}
+        </th> -->
+        <!-- <th scope="col " class="text-center">Action</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="
+          let item of allUsers
+            | filter: searchText
+            | orderBy: order:reverse:caseInsensitive
+        "
+      >
+        <td>{{ item.firstName }}</td>
+        <td>{{ item.lastName }}</td>
+        <td>{{ item.address }}, {{ item.location }}, {{ item.common }}</td>
+        <td>{{ item.email }}</td>
+
+        <td class="d-flex flex-row justify-content-center">
+          <a class="btn btn-primary me-2" [routerLink]="['/user/edit', item.id]"
+            >Edit</a
+          >
+
+          <button
+            type="button"
+            (click)="openDeleteModal(item.id)"
+            class="btn btn-danger"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div
+  class="modal fade"
+  id="deleteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Warning!</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">Are you sure to delete the item?</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-danger" (click)="delete()">
+          Confirm Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
